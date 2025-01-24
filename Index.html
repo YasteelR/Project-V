@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #ff9a9e, #fecfef);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        .heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .heart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background-color: #ff4d4d;
+            clip-path: polygon(50% 0%, 100% 35%, 100% 70%, 50% 100%, 0% 70%, 0% 35%);
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 0.5rem;
+        }
+        .button {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: #ff4d4d;
+            cursor: pointer;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-container">
+        <div class="heart"></div>
+    </div>
+    <h1>Will You Be My Valentine?</h1>
+    <p>You make my world brighter, sweeter, and oh so beautiful. ❤️</p>
+    <div class="button">
+        <button onclick="alert('Yay! You made my heart so happy! 🥰')">Yes</button>
+        <button onclick="alert('Aww, I’ll keep trying to make you smile 😊')">No</button>
+    </div>
+</body>
+</html>
