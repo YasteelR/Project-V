@@ -3,103 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Love You This Much</title>
+    <title>Be My Valentine</title>
     <style>
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom right, #ffe6e6, #ffcccc);
+            background: linear-gradient(to bottom right, #ff9a9e, #fecfef);
+            color: #fff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            text-align: center;
         }
-
-        .container {
+        .heart-container {
             position: relative;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
         }
-
-        .cartoon {
-            position: absolute;
-            width: 200px;
-            height: auto;
-            z-index: 2;
-        }
-
         .heart {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.2);
+            width: 200px;
+            height: 200px;
             background-size: contain;
             background-repeat: no-repeat;
-            animation: orbit 5s linear infinite;
+            animation: pulse 5s infinite;
+            opacity: 0;
         }
-
         .heart:nth-child(1) {
-            background-image: url('Red_Heart_PNG_Clipart-992.png');
             animation-delay: 0s;
+            background-image: url('Red_Heart_PNG_Clipart-992.png');
         }
-
         .heart:nth-child(2) {
-            background-image: url('Pink_Heart_PNG_Transparent_Clipart.png');
             animation-delay: 1s;
-        }
-
-        .heart:nth-child(3) {
-            background-image: url('Red_Heart_PNG_Clipart-992.png');
-            animation-delay: 2s;
-        }
-
-        .heart:nth-child(4) {
             background-image: url('Pink_Heart_PNG_Transparent_Clipart.png');
-            animation-delay: 3s;
         }
-
-        .heart:nth-child(5) {
+        .heart:nth-child(3) {
+            animation-delay: 2s;
             background-image: url('Red_Heart_PNG_Clipart-992.png');
+        }
+        .heart:nth-child(4) {
+            animation-delay: 3s;
+            background-image: url('Pink_Heart_PNG_Transparent_Clipart.png');
+        }
+        .heart:nth-child(5) {
             animation-delay: 4s;
+            background-image: url('Red_Heart_PNG_Clipart-992.png');
         }
 
-        @keyframes orbit {
+        @keyframes pulse {
             0% {
-                transform: rotate(0deg) translateX(150px) rotate(0deg);
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+            30% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
             }
             100% {
-                transform: rotate(360deg) translateX(150px) rotate(-360deg);
+                transform: translate(-50%, -50%) scale(5);
+                opacity: 0;
             }
         }
-
-        .text {
-            position: absolute;
-            bottom: 10%;
-            font-size: 2rem;
-            font-weight: bold;
+        h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 0.5rem;
+        }
+        .button {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
             color: #ff4d4d;
-            text-align: center;
-            z-index: 1;
+            cursor: pointer;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            margin-bottom: 2rem;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+        button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Cartoon image in the center -->
-        <img src="dancing-monkey.png" alt="Cartoon with arms wide open" class="cartoon">
-
-        <!-- Revolving hearts -->
+    <div class="heart-container">
         <div class="heart"></div>
         <div class="heart"></div>
         <div class="heart"></div>
         <div class="heart"></div>
         <div class="heart"></div>
-
-        <!-- Text below the cartoon -->
-        <div class="text">I love you this much!</div>
     </div>
+    <h1>Will You Be My Valentine?</h1>
+    <p>You are my everything ❤️</p>
+    <div class="button">
+        <button onclick="alert('fr!\nEverything is more special knowing that I get to share it with you 🥰')">Yes</button>
+        <button onclick="alert('Awww mannnn🥺\nGuess I really was delulu bout you')">No</button>
+    </div>
+    <div class="button">
+        <button onclick="window.location.href='page3.html'">Wanna know a secret &#128064</button>
+    </div>
+    
 </body>
 </html>
