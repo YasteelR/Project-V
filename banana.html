@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monke time </title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff99cc, #ff6699);
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+        }
+        canvas {
+            background-image: url('background.png');
+            background-size: cover;
+            border: 5px solid white;
+            border-radius: 10px;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+        .floating-heart {
+            position: absolute;
+            width: 100px;  /* Twice the size of the previous floating hearts */
+            height: 100px; /* Twice the size of the previous floating hearts */
+            background-image: url('Red_Heart_PNG_Clipart-992.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: fadeInOut 3s forwards;  /* Fade in and out */
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .lives {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white; text-shadow: 2px 2px 5px black;"> Me When I See You ❤️<br/> You make me go banana's 🍌 </h1>
+    <h4 style="color: white; text-shadow: 2px 2px 5px black;"> Use Arrow keys </h4>
+    <div class="lives" id="livesDisplay">❤️❤️❤️</div>
+    <canvas id="gameCanvas" width="400" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const livesDisplay = document.getElementById("livesDisplay");
+        
+        const playerImg = new Image();
+        playerImg.src = "dancing-monkey.png";  
+        const heartImg = new Image();
+        heartImg.src = "banana.png";  
+        const obstacleImg = new Image();
+        obstacleImg.src = "rock.png";  
+        
+        let player = { x: 175, y: 430, width: 60, height: 60 };
+        let hearts = [];
+        let obstacles = [];
+        let score = 0;
+        let lives = 3;
+        let gameOver = false;
+        
+        function drawPlayer() {
+            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+        }
+        
+        function drawHeart(heart) {
+            ctx.drawImage(heartImg, heart.x, heart.y, heart.size, heart.size);
+        }
+        
+        function drawObstacle(obstacle) {
+            ctx.drawImage(obstacleImg, obstacle.x, obstacle.y, obstacle.size, obstacle.size);
+        }
+        
+        function update() {
+            if (gameOver) return;
+            
+            hearts.forEach((heart, index) => {
+                heart.y += heart.speed;
+                if (heart.y > canvas.height) hearts.splice(index, 1);
+            });
+            
+            obstacles.forEach((obstacle, index) => {
+                obstacle.y += obstacle.speed;
+                if (obstacle.y > canvas.height) obstacles.splice(index, 1);
+            });
+            
+            hearts.forEach((heart, index) => {
+                if (
+                    heart.y + heart.size > player.y &&
+                    heart.x > player.x &&
+                    heart.x < player.x + player.width
+                ) {
+                    score++;
+                    hearts.splice(index, 1);
+                    spawnFloatingHearts();  // Update the floating hearts on collection
+                }
+            });
+            
+            obstacles.forEach((obstacle, index) => {
+                if (
+                    obstacle.y + obstacle.size > player.y &&
+                    obstacle.x < player.x + player.width &&
+                    obstacle.x + obstacle.size > player.x
+                ) {
+                    lives--;
+                    obstacles.splice(index, 1);
+                    updateLivesDisplay();
+                    if (lives === 0) {
+                        gameOver = true;
+                        setTimeout(() => alert("I guess I love you atleast " + score + " times :P"), 100);
+                    }
+                }
+            });
+        }
+        
+        function updateLivesDisplay() {
+            livesDisplay.innerHTML = "❤️".repeat(lives);
+        }
+        
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlayer();
+            hearts.forEach(drawHeart);
+            obstacles.forEach(drawObstacle);
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.fillText("Score: " + score, 10, 30);
+        }
+        
+        function gameLoop() {
+            update();
+            draw();
+            if (!gameOver) requestAnimationFrame(gameLoop);
+        }
+        
+        function spawnHeart() {
+            hearts.push({ x: Math.random() * 360, y: 0, size: 40, speed: 3 });
+        }
+        
+        function spawnObstacle() {
+            obstacles.push({ x: Math.random() * 360, y: 0, size: 50, speed: 4 });
+        }
+        
+        function spawnFloatingHearts() {
+            // Spawn hearts based on the score
+            for (let i = 0; i < score; i++) {
+                let heart = document.createElement("div");
+                heart.className = "floating-heart";
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.top = Math.random() * window.innerHeight + "px";
+                document.body.appendChild(heart);
+                
+                // Remove heart after animation ends (3 seconds)
+                setTimeout(() => heart.remove(), 3000);  // Time to match the animation duration
+            }
+        }
+        
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft" && player.x > 0) player.x -= 20;
+            if (event.key === "ArrowRight" && player.x < canvas.width - player.width) player.x += 20;
+        });
+        
+        setInterval(spawnHeart, 1000); // Hearts spawned every second
+        setInterval(spawnObstacle, 2000);
+        gameLoop();
+    </script>
+</body>
+</html>

@@ -30,6 +30,7 @@
             width: 220px;
             height: auto;
             z-index: 2;
+            cursor: pointer; /* Add pointer cursor for the clickable image */
         }
 
         .heart {
@@ -109,12 +110,22 @@
             text-align: center;
             z-index: 1;
         }
+
+        .ticklish-text {
+            position: fixed;
+            bottom: 5%;
+            left: 5%;
+            font-size: 1rem;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.6); /* Subtle text */
+            z-index: 3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Cartoon image in the center -->
-        <img src="dancing-monkey.png" alt="Cartoon with arms wide open" class="cartoon">
+        <img src="dancing-monkey.png" alt="Cartoon with arms wide open" class="cartoon" onclick="window.location.href='banana.html';">
 
         <!-- Revolving hearts -->
         <div class="heart"></div>
@@ -124,9 +135,11 @@
         <div class="heart"></div>
         <div class="heart"></div>
 
-
         <!-- Text below the cartoon -->
         <div class="text">I love you this much!</div>
+
+        <!-- Subtle text -->
+        <div class="ticklish-text">ssssssssssshhhhhhhhhhhhhhhhhhhhhhhhhh extra secret I'm ticklish!</div>
     </div>
 </body>
 </html>
